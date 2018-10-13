@@ -47,6 +47,7 @@ return Def.ActorFrame{
 			self:zoom( 0.4 )
 			self:y( _screen.cy-71 )
 			self:x( (player == PLAYER_1 and -134.5) or 134.5 )
+			self:maxwidth(70)
 
 			local meter
 			if GAMESTATE:IsCourseMode() then
