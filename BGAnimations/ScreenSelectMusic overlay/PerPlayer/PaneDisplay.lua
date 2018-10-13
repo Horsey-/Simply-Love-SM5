@@ -250,7 +250,7 @@ end
 pd[#pd+1] = Def.BitmapText{
 	Font="_wendy small",
 	Name="DifficultyMeter",
-	InitCommand=cmd(horizalign, right; diffuse, Color.Black; xy, _screen.w/4 - 10, _screen.h/2 - 65; queuecommand, "Set"),
+	InitCommand=cmd(horizalign, right; diffuse, Color.Black; xy, _screen.w/4 - 10, _screen.h/2 - 65; maxwidth, 55; queuecommand, "Set"),
 	SetCommand=function(self)
 		local SongOrCourse = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse()) or GAMESTATE:GetCurrentSong()
 		if not SongOrCourse then
