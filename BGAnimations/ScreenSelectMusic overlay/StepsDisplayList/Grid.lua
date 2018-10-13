@@ -131,6 +131,7 @@ for RowNumber=1,GridRows do
 			self:y(RowNumber * height * BlockZoomY)
 			self:x( IsUsingWideScreen() and -140 or -126 )
 			self:zoom(0.3)
+			self:maxwidth(50)
 		end,
 		SetCommand=function(self, params)
 			-- diffuse and set each chart's difficulty meter
