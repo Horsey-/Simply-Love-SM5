@@ -194,10 +194,17 @@ local SL_CustomPrefs =
 		Choices = { THEME:GetString("ThemePrefs","Off"), THEME:GetString("ThemePrefs","On"), THEME:GetString("ThemePrefs","OnWithSound"),  },
 		Values  = { 0, 1, 2 }
 	},
+
 	VerboseSongFolder = {
 		Default = false,
 		Choices =  { THEME:GetString("ThemePrefs","Yes"), THEME:GetString("ThemePrefs", "No") },
 		Values 	= { true , false }
+	},
+
+	HighscoreCharLimit = {
+		Default = 9,
+		Choices = { 4, 5, 6, 7, 8, 9 },
+		Values  = { 4, 5, 6, 7, 8, 9 }
 	},
 }
 
