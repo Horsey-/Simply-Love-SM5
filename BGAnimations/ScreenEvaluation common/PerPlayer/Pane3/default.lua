@@ -89,22 +89,22 @@ if highscores then
 
 		row[#row+1] = LoadFont("_miso")..{
 			Text=s..". ",
-			InitCommand=cmd(horizalign,right; xy, -120, (s-(lower-1))*22 )
+			InitCommand=cmd(horizalign,right; xy, -132, (s-(lower-1))*22 )
 		}
 
 		row[#row+1] = LoadFont("_miso")..{
 			Text=name,
-			InitCommand=cmd(horizalign,left; xy, -110, (s-(lower-1))*22 )
+			InitCommand=cmd(horizalign,center; xy, -72, (s-(lower-1))*22; maxwidth, 90 )
 		}
 
 		row[#row+1] = LoadFont("_miso")..{
 			Text=score,
-			InitCommand=cmd(horizalign,right; xy, 24, (s-(lower-1))*22 )
+			InitCommand=cmd(horizalign,right; xy, 45, (s-(lower-1))*22 )
 		}
 
 		row[#row+1] = LoadFont("_miso")..{
 			Text=date,
-			InitCommand=cmd(horizalign,left; xy, 50, (s-(lower-1))*22 )
+			InitCommand=cmd(horizalign,left; xy, 71, (s-(lower-1))*22 )
 		}
 
 		pane[#pane+1] = row
