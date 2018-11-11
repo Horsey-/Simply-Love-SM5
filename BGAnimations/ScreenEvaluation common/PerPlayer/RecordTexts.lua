@@ -24,7 +24,7 @@ if SL.Global.GameMode ~= "Casual" then
 		local t = Def.ActorFrame{
 			InitCommand=cmd(zoom, 0.225),
 			OnCommand=function(self)
-				self:x( (player == PLAYER_1 and -80) or 80 )
+				self:x( (player == PLAYER_1 and -45.5) or 95 )
 				self:y( 54 )
 			end
 		}
@@ -32,14 +32,15 @@ if SL.Global.GameMode ~= "Casual" then
 		if EarnedMachineRecord then
 			t[#t+1] = LoadFont("_wendy small")..{
 				Text=string.format("Machine Record %i", highScoreIndex.Machine+1),
-				InitCommand=cmd(halign,0; xy,-110,-18; diffuse,PlayerColor(player); glowshift;effectcolor1,color("1,1,1,0"); effectcolor2,color("1,1,1,0.25")),
+				--halign,1 is centered
+				InitCommand=cmd(horizalign,center; xy,-110,-18; diffuse,PlayerColor(player); glowshift;effectcolor1,color("1,1,1,0"); effectcolor2,color("1,1,1,0.25")),
 			}
 		end
 
 		if EarnedPersonalRecord then
 			t[#t+1] = LoadFont("_wendy small")..{
 				Text=string.format("Personal Record %i", highScoreIndex.Personal+1),
-				InitCommand=cmd(halign,0; xy,-110,24; diffuse,PlayerColor(player); glowshift;effectcolor1,color("1,1,1,0"); effectcolor2,color("1,1,1,0.25")),
+				InitCommand=cmd(horizalign,center; xy,-110,24; diffuse,PlayerColor(player); glowshift;effectcolor1,color("1,1,1,0"); effectcolor2,color("1,1,1,0.25")),
 			}
 		end
 
