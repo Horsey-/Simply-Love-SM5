@@ -92,7 +92,8 @@ t[#t+1] = LoadFont("_wendy small")..{
 			self:visible( THEME:GetMetric( screen:GetName(), "ShowCreditDisplay" ) )
 		end
 
-		if PREFSMAN:GetPreference("EventMode") then
+--we don't want the clock and Event Mode text to overlap
+		if PREFSMAN:GetPreference("EventMode") and not GAMESTATE:GetCoinMode() == "CoinMode_Home" then
 			self:settext( THEME:GetString("ScreenSystemLayer", "EventMode") )
 
 		elseif GAMESTATE:GetCoinMode() == "CoinMode_Pay" then
@@ -114,5 +115,68 @@ t[#t+1] = LoadFont("_wendy small")..{
 		end
 	end
 }
+
+--Bottom Bar Clock
+t[#t+1] = LoadFont("_miso")..{
+	InitCommand=cmd(x,_screen.cx;
+					y,SCREEN_BOTTOM-16;
+					zoom,1;horizalign,center;
+	);
+	OnCommand=cmd(playcommand,"Refresh");
+	--this code will be used if I ever get a selectbuttonmenu working; ideally, this menu should show player stats on ScreenSelectMusic
+	-- SelectMenuOpenedMessageCommand=cmd(accelerate,0.2;addy,-31);
+	-- SelectMenuClosedMessageCommand=cmd(linear,0.3;addy,31);
+	ScreenChangedMessageCommand=function(self)
+		self:playcommand("Refresh");
+	end;
+	CoinModeChangedMessageCommand=cmd(playcommand,"Refresh");
+	CoinsChangedMessageCommand=cmd(playcommand,"Refresh");
+	PulseMessageCommand=cmd(playcommand,"Refresh");
+	RefreshCommand=function(self)
+		local screen = SCREENMAN:GetTopScreen()
+		local bShow = true
+		if screen then
+			local sClass = screen:GetName()
+			bShow = THEME:GetMetric( sClass, "ShowCreditDisplay" )
+
+			-- hide this centered credit text for certain screens,
+			-- where it would more likely just be distracting and superfluous
+			--I'm leaving out the clock on the player options screens because this screen isn't supposed to be "sat on"
+			if sClass == "ScreenPlayerOptions"
+				or sClass == "ScreenTitleMenu"
+				or sClass == "ScreenEditMenu"
+				or sClass == "ScreenEditOptions"
+				or sClass == "ScreenMiniMenuMainMenu"
+				or sClass == "ScreenPlayerOptions2"
+				or sClass == "ScreenEvaluationStage"
+				or sClass == "ScreenEvaluationCourse"
+				or sClass == "ScreenEvaluationSummary"
+				or sClass == "ScreenNameEntryActual"
+				or sClass == "ScreenNameEntryTraditional"
+				or sClass == "ScreenGameOver" then
+				bShow = false
+			end
+		end
+
+		--don't show the clock in Free Play or Coin mode, because these modes should have the free play/coins banner
+		if GAMESTATE:GetCoinMode() == "CoinMode_Pay" or GAMESTATE:GetCoinMode() == "CoinMode_Free"
+			then self:visible( false )
+		end
+
+		--as long as you are in Home Mode, the clock will be visible on the screens where it's not blacklisted
+		if GAMESTATE:GetCoinMode() == "CoinMode_Home" then
+			self:settext(string.format('%2ih %02im %02i %s %02i %04i', Hour(), Minute(), Second(), MonthToString(MonthOfYear()), DayOfMonth(), Year()))
+			self:visible( bShow )
+		end
+	end;
+}
+
+--Pulse by second (used by the clock)
+t[#t+1] = Def.ActorFrame {
+	Def.Quad {
+		PulseCommand=function(self) MESSAGEMAN:Broadcast("Pulse"); self:sleep(1); self:queuecommand("Pulse"); end;
+		InitCommand=cmd(visible,false;playcommand,"Pulse");
+	};
+};
 
 return t
