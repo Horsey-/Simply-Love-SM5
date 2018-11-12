@@ -31,7 +31,18 @@ local t = Def.ActorFrame{
 	LoadActor("./GlobalStorage.lua"),
 
 	-- help text that appears if we're in Casual gamemode
-	LoadActor("./CasualHelpText.lua")
+	LoadActor("./CasualHelpText.lua"),
+
+	-- timestamp at the bottom of the screen showing the date
+	LoadFont("_wendy small") .. {
+		InitCommand=cmd(zoom,WideScale(0.4, 0.5); xy, _screen.cx, SCREEN_BOTTOM-13.5; horizalign,center; diffusealpha,0; queuecommand,"TextSet"),
+		TextSetCommand=function(self)
+					self:settext( string.format('%s %02i %04i', MonthToString(MonthOfYear()), DayOfMonth(), Year()) )
+		end,
+		OnCommand=cmd(decelerate,0.5; diffusealpha,1),
+		OffCommand=cmd(accelerate,0.5;diffusealpha,0)
+	},
+
 }
 
 
