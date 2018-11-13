@@ -13,8 +13,8 @@ local t = Def.ActorFrame{
 	end,
 
 	Def.ActorFrame{
-		CurrentSongChangedMessageCommand=function(self) self:playcommand("Set") end,
-		CurrentCourseChangedMessageCommand=function(self) self:playcommand("Set") end,
+		CurrentSongChangedMessageCommand=cmd(playcommand,"Set"),
+		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set"),
 		SetCommand=function(self)
 			SongOrCourse = GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse() or GAMESTATE:GetCurrentSong()
 			if SongOrCourse and SongOrCourse:HasBanner() then
@@ -35,8 +35,25 @@ local t = Def.ActorFrame{
 		},
 	},
 
+	Def.Sprite{
+		Name="GroupBanner",
+		OnCommand=cmd(setsize,418,164;visible,false;playcommand,"Set"),
+		CurrentSongChangedMessageCommand=cmd(playcommand,"Set"),
+		CurrentCourseChangedMessageCommand=cmd(playcommand,"Set"),
+		SetCommand=function(self)
+			SongOrCourse = GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse() or GAMESTATE:GetCurrentSong();
+			if SongOrCourse and not SongOrCourse:HasBanner() and HasGroupBanner() then
+				self:Load(GetGroupBanner());
+				self:visible(true);
+			else
+				self:visible(false);
+			end
+		end,
+	},
+
 	Def.ActorProxy{
 		Name="BannerProxy",
+		OnCommand=cmd(setsize,418,164),
 		BeginCommand=function(self)
 			banner = SCREENMAN:GetTopScreen():GetChild('Banner')
 			self:SetTarget(banner)

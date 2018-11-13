@@ -169,7 +169,7 @@ end
 
 
 function GetSimplyLoveOptionsLineNames()
-	local lines = "CasualMaxMeter,AutoStyle,DefaultGameMode,TimingWindowAdd,CustomFailSet,CreditStacking,MusicWheelStyle,MusicWheelSpeed,SelectProfile,SelectColor,EvalSummary,NameEntry,GameOver,HideStockNoteSksins,DanceSolo,GradesInMusicWheel,Nice,VisualTheme,RainbowMode,VerboseSongFolder,HighscoreCharLimit"
+	local lines = "CasualMaxMeter,AutoStyle,DefaultGameMode,TimingWindowAdd,CustomFailSet,CreditStacking,MusicWheelStyle,MusicWheelSpeed,SelectProfile,SelectColor,EvalSummary,NameEntry,GameOver,HideStockNoteSksins,DanceSolo,GradesInMusicWheel,Nice,VisualTheme,RainbowMode,VerboseSongFolder,HighscoreCharLimit,NoBannerUseGroupBanner"
 	if Sprite.LoadFromCached ~= nil then
 		lines = lines .. ",UseImageCache"
 	end
