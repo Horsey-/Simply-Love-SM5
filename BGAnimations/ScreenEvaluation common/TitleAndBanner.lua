@@ -70,10 +70,20 @@ if SongOrCourse and SongOrCourse:HasBanner() then
 		OnCommand=cmd(xy, _screen.cx, 126.5; setsize,418,164; zoom, 0.7 )
 	}
 else
-	--fallback banner
-	af[#af+1] = LoadActor( THEME:GetPathB("ScreenSelectMusic", "overlay/colored_banners/" .. (banner_directory[ThemePrefs.Get("VisualTheme")] or "Hearts") .. "/banner" .. SL.Global.ActiveColorIndex .. " (doubleres).png"))..{
-		InitCommand=function(self) self:xy( _screen.cx, 126.5):zoom(0.7) end
-	}
+	if HasGroupBanner() then
+		af[#af+1] = Def.Banner{
+			Name="GroupBanner",
+			InitCommand=function(self)
+				self:Load(GetGroupBanner());
+			end,
+			OnCommand=cmd(xy, _screen.cx, 126.5; setsize,418,164; zoom, 0.7 ),
+		};
+	else
+		--fallback banner
+		af[#af+1] = LoadActor(THEME:GetPathB("ScreenSelectMusic","overlay/colored_banners/".. (banner_directory[ThemePrefs.Get("VisualTheme")] or "Hearts") .."/banner".. SL.Global.ActiveColorIndex .." (doubleres).png"))..{
+			InitCommand=function(self) self:xy( _screen.cx, 126.5):zoom(0.7) end
+		};
+	end
 end
 
 return af
