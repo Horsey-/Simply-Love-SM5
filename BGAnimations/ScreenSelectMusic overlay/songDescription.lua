@@ -249,7 +249,7 @@ local t = Def.ActorFrame{
 		-- long/marathon version bubble graphic and text
 		Def.ActorFrame{
 			OnCommand=function(self)
-				self:x( IsUsingWideScreen() and 102.5 or 97 )
+				self:x( IsUsingWideScreen() and 103 or 97 )
 			end,
 			SetCommand=function(self)
 				local song = GAMESTATE:GetCurrentSong()
