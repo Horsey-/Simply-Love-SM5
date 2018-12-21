@@ -156,13 +156,7 @@ function SetGameModePreferences()
 end
 
 function GetOperatorMenuLineNames()
-	local lines = "ClearCredits,System,KeyConfig,TestInput,Visual,GraphicsSound,Arcade,Input,Theme,MenuTimer,CustomSongs,Advanced,Profiles,Acknowledgments,Reload"
-
-	-- hide the OptionRow for ClearCredits if we're not in CoinMode_Pay; it doesn't make sense to show for at-home players
-	-- note that (EventMode + CoinMode_Pay) will actually place you in CoinMode_Home
-	if GAMESTATE:GetCoinMode() ~= "CoinMode_Pay" then
-		lines = lines:gsub("ClearCredits,", "")
-	end
+	local lines = "System,KeyConfig,TestInput,Visual,GraphicsSound,Arcade,Input,Theme,MenuTimer,CustomSongs,Advanced,Profiles,Acknowledgments,Reload"
 
 	-- CustomSongs preferences don't exist in 5.0.x, which many players may still be using
 	-- thus, if the preference for CustomSongsEnable isn't found in this version of SM, don't let players
@@ -175,7 +169,7 @@ end
 
 
 function GetSimplyLoveOptionsLineNames()
-	local lines = "CasualMaxMeter,AutoStyle,DefaultGameMode,TimingWindowAdd,CustomFailSet,CreditStacking,MusicWheelStyle,MusicWheelSpeed,SelectProfile,SelectColor,EvalSummary,NameEntry,GameOver,HideStockNoteSksins,DanceSolo,GradesInMusicWheel,Nice,VisualTheme,RainbowMode,VerboseSongFolder,HighscoreCharLimit,NoBannerUseGroupBanner"
+	local lines = "CasualMaxMeter,AutoStyle,DefaultGameMode,TimingWindowAdd,CustomFailSet,CreditStacking,MusicWheelStyle,MusicWheelSpeed,SelectProfile,SelectColor,EvalSummary,NameEntry,GameOver,HideStockNoteSksins,DanceSolo,GradesInMusicWheel,Nice,VisualTheme,RainbowMode,VerboseSongFolder,HighscoreCharLimit"
 	if Sprite.LoadFromCached ~= nil then
 		lines = lines .. ",UseImageCache"
 	end
@@ -255,57 +249,4 @@ GetThemeVersion = function()
 		end
 	end
 	return false
-end
-
-local function FilenameIsMultiFrameSprite(filename)
-	-- look for the "[frames wide] x [frames tall]"
-	-- and some sort of all-letters file extension
-	-- Lua doesn't support an end-of-string regex marker...
-	return string.match(filename, " %d+x%d+") and string.match(filename, "%.[A-Za-z]+")
-end
-
-local function StripSpriteHints(filename)
-	-- handle common cases here, gory details in /src/RageBitmapTexture.cpp
-	return filename:gsub(" %d+x%d+", ""):gsub(" %(doubleres%)", ""):gsub(".png", "")
-end
-
-function CleanString(filename)
-	-- do a couple text conversions to allow spaces and periods in display strings
-	-- without causing so much grief with SM loading
-	-- Suppose two images named "A" and "A B" are in the same folder
-	-- Attempting to load "A" will throw a nonsensical but harmless error
-	local name = filename:gsub("_", " ")
-	name = name:gsub("`", ".")
-
-	return name
-end
-
-function GetJudgmentGraphics(mode)
-	if mode == 'Casual' then mode = 'Competitive' end
-	local path = THEME:GetPathG('', '_judgments/' .. mode)
-	local files = FILEMAN:GetDirListing(path .. '/')
-	local judgment_graphics = {}
-
-	for k,filename in ipairs(files) do
-
-		-- Filter out files that aren't judgment graphics
-		-- e.g. hidden system files like .DS_Store
-		if FilenameIsMultiFrameSprite(filename) then
-
-			-- use regexp to get only the name of the graphic, stripping out the extension
-			local name = StripSpriteHints(filename)
-
-			-- Fill the table, special-casing Love so that it comes first.
-			if name == "Love" then
-				table.insert(judgment_graphics, 1, name)
-			else
-				judgment_graphics[#judgment_graphics+1] = name
-			end
-		end
-	end
-
-	-- "None" -> no graphic in Player judgment lua
-	judgment_graphics[#judgment_graphics+1] = "None"
-
-	return judgment_graphics
 end

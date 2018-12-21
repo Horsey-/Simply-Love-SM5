@@ -206,15 +206,6 @@ local SL_CustomPrefs =
 		Choices = { 4, 5, 6, 7, 8, 9 },
 		Values  = { 4, 5, 6, 7, 8, 9 }
 	},
-
-	NoBannerUseGroupBanner = {
-		Default = true,
-		Choices = {
-			THEME:GetString("ThemePrefs", "UseGroupBanner"),
-			THEME:GetString("ThemePrefs", "NoUseGroupBanner")
-		},
-		Values 	= { true , false }
-	},
 }
 
 -- We need to InitAll() now so that ./Scripts/SL_Init.lua can use
