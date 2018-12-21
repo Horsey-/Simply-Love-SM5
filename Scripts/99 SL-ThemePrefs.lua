@@ -206,6 +206,7 @@ local SL_CustomPrefs =
 		Choices = { 4, 5, 6, 7, 8, 9 },
 		Values  = { 4, 5, 6, 7, 8, 9 }
 	},
+<<<<<<< HEAD
 
 	NoBannerUseGroupBanner = {
 		Default = true,
@@ -215,6 +216,8 @@ local SL_CustomPrefs =
 		},
 		Values 	= { true , false }
 	},
+=======
+>>>>>>> aecfb6a... Make highscore character limit configurable in Simply Love Options
 }
 
 -- We need to InitAll() now so that ./Scripts/SL_Init.lua can use
