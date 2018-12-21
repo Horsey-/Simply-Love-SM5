@@ -175,11 +175,7 @@ end
 
 
 function GetSimplyLoveOptionsLineNames()
-<<<<<<< HEAD
 	local lines = "CasualMaxMeter,AutoStyle,DefaultGameMode,TimingWindowAdd,CustomFailSet,CreditStacking,MusicWheelStyle,MusicWheelSpeed,SelectProfile,SelectColor,EvalSummary,NameEntry,GameOver,HideStockNoteSksins,DanceSolo,GradesInMusicWheel,Nice,VisualTheme,RainbowMode,VerboseSongFolder,HighscoreCharLimit,NoBannerUseGroupBanner"
-=======
-	local lines = "CasualMaxMeter,AutoStyle,DefaultGameMode,TimingWindowAdd,CustomFailSet,CreditStacking,MusicWheelStyle,MusicWheelSpeed,SelectProfile,SelectColor,EvalSummary,NameEntry,GameOver,HideStockNoteSksins,DanceSolo,GradesInMusicWheel,Nice,VisualTheme,RainbowMode,VerboseSongFolder,HighscoreCharLimit"
->>>>>>> aecfb6a... Make highscore character limit configurable in Simply Love Options
 	if Sprite.LoadFromCached ~= nil then
 		lines = lines .. ",UseImageCache"
 	end
