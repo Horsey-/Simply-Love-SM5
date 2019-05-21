@@ -87,6 +87,7 @@ local t = Def.ActorFrame{
 						local song = GAMESTATE:GetCurrentSong()
 						if song and song:GetDisplayArtist() then
 							self:settext( song:GetDisplayArtist() )
+							--self:settext( GetTranslitArtist() )
 						else
 							self:settext("")
 						end
